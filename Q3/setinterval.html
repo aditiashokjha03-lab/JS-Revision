@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Revision</title>
+</head>
+<body>
+    <h1>Q3. Implement setInterval Using setTimeout</h1>
+</body>
+<script>
+    function mySetInterval(callback, delay){
+        const id = Date.now(); // Unique ID for this interval
+        const tracker - { timeoutId:null};
+        activeIntervals[id] = tracker;
+
+        function run(){
+            callback();
+            tracker.timeoutId = setTimeout(run, delay);
+        }
+
+        tracker.timeoutId = setTimeout(run, delay);
+        return id; // Return the unique ID for this interval
+    }
+
+    function myClearInterval(id){
+        if(activeIntervals[id]){
+            clearTimeout(activeIntervals[id].timeoutId);
+            delete activeIntervals[id]; // Remove from active intervals
+            console.log(`Interval stopped`);
+        }
+    }
+
+    const myId = mySetInterval(() => {console.log("Tick..." + new Date().getSeconds())}, 1000);
+    setTimeout(() => {
+        myClearInterval(myId);
+    }, 5500); // Stop after 5 seconds
+
+</script>
+</html>
