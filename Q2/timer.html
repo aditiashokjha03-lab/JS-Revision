@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Revision</title>
+</head>
+<body>
+    Q2. Build a Rate Limiter (Closure + Timers)
+</body>
+<script>
+    function createRateLimiter(limit, interval){
+        let count = 0;
+        setInterval(() => {
+            count = 0; // Reset count after each interval
+            console.log("Rate limiter reset");
+        }, interval);
+
+        return function(callback){
+            if(count < limit){
+                count++;
+                callback();
+            } else {
+                console.log("Rate limit exceeded. Please wait");
+            }
+        };
+    }
+
+    const throttle = createRateLimiter(3, 5000); // Limit to 3 calls every 5 seconds
+    throttle(() => console.log("Call 1"));
+    throttle(() => console.log("Call 2"));
+    throttle(() => console.log("Call 3"));
+    throttle(() => console.log("Call 4")); // This will be blocked
+
+
+</script>
+</html>
