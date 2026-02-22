@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Revision Evaluation</title>
+</head>
+<body>
+    <h1>Q1. Create a Bank Account (Using Closures for Private State)</h1>
+</body>
+
+<script>
+function
+createBankAccount(initialBalance = 0) {
+    let balance = initialBalance;
+    let transactioHistory = [
+        {
+            type: "Opening", amount: initialBalance, timestamp: new Date().toISOString()
+        }
+    ];
+
+    return{
+        deposit(amount) {
+            if (amount <= 0) return "Error : Deposit must be greater than 0";
+            balance += amount;
+            transactioHistory.push({ type: "Deposit", amount, timestamp: new Date().toISOString() });
+            return `Deposited: ${amount}`;
+        },
+        withdraw(amount) {
+            if (amount <= 0) return "Error : Withdrawal must be greater than 0";
+            if (amount > balance) return "Error : Insufficient funds";
+            balance -= amount;
+            transactioHistory.push({ type: "Withdrawal", amount, timestamp: new Date().toISOString() });
+            return `Withdrew: ${amount}`;
+        },
+        getBalance() {
+            return `Current Balance: ${balance}`;
+        },
+        getTransactionHistory() {
+            return [...transactioHistory];
+    }
+    };
+}
+
+const myAccount = createBankAccount(100);
+
+console.log(myAccount.deposit(50));
+console.log(myAccount.withdraw(30));
+console.log(myAccount.withdraw(200));
+console.log(myAccount.getBalance());
+console.log(myAccount.balance);
+console.table(myAccount.getTransactionHistory()
+);
+
+</script>
+</html>
